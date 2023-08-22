@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        /* Styling for the entire page */
+        body{
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(45deg, black, purple);
+            text-align: center;
+            height: 100vh;
+            color: #FFFFFF;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        /* Styling for the calculator container */
+        .calculator{
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        /* Styling for the input field */
+        .calculator input[type="text"]{
+            background-color: #FFFFFF;
+            width: 213px;
+            height: 30px;
+            margin: 5px;
+            font-size: 25px;
+            color: black;
+            text-align: right;
+            padding: 5px;
+            overflow-x: auto;
+        }
+
+        /* Styling for the calculator buttons */
+        .calculator button{
+            border-radius: 3px;
+            margin: 3px;
+            width: 50px;
+            height: 50px;
+            font-size: 25px;
+            cursor: pointer;
+            background-color: rgb(31, 31, 31);
+            border: none;
+            color: #FFFFFF;
+        }
+
+        /* Styling for the calculator buttons on hover */
+        .calculator button:hover{
+            transition: 0.5s;
+            background-color: black
+        }
+    </style>
+</head>
+<body>
+    <!-- Title -->
+    <h1>Bruno's Calculator</h1>
+    <!-- Calculator container -->
+    <div class="calculator">
+        <table>
+            <!-- Input field for displaying calculations -->
+            <input type="text" id="display" readonly>
+
+            <!-- Calculator buttons organized in rows and columns -->
+            <tr>
+                <!-- Clear button -->
+                <td><button onclick="clearDisplay()"> C </button></td>
+                <!-- Delete last digit button -->
+                <td><button onclick="deleteLastDigit()"> D </button></td>
+                <!-- Division operator button -->
+                <td><button onclick="appendToDisplay('/')"> / </button></td>
+                <!-- Multiplication operator button -->
+                <td><button onclick="appendToDisplay('*')"> x </button></td>
+            </tr>
+            
+            <tr>
+                <!-- Numeric buttons 7, 8, 9, and subtraction operator -->
+                <td><button onclick="appendToDisplay('7')"> 7 </button></td>
+                <td><button onclick="appendToDisplay('8')"> 8 </button></td>
+                <td><button onclick="appendToDisplay('9')"> 9 </button></td>
+                <td><button onclick="appendToDisplay('-')"> - </button></td>
+            </tr>
+
+            <tr>
+                <!-- Numeric buttons 4, 5, 6, and addition operator -->
+                <td><button onclick="appendToDisplay('4')"> 4 </button></td>
+                <td><button onclick="appendToDisplay('5')"> 5 </button></td>
+                <td><button onclick="appendToDisplay('6')"> 6 </button></td>
+                <td><button onclick="appendToDisplay('+')"> + </button></td>
+            </tr>
+
+            <tr>
+                <!-- Numeric buttons 1, 2, 3, and equal sign button -->
+                <td><button onclick="appendToDisplay('1')"> 1 </button></td>
+                <td><button onclick="appendToDisplay('2')"> 2 </button></td>
+                <td><button onclick="appendToDisplay('3')"> 3 </button></td>
+                <!-- Special button for calculation (equals) -->
+                <td rowspan="2"><button onclick="calculateResult()" style="height: 106px;"> = </button></td>
+            </tr>
+
+            <tr>
+                <!-- Numeric button 0, a wide button, and a decimal point button -->
+                <td colspan="2"><button onclick="appendToDisplay('0')" style="width: 106px;">0</button></td>
+                <td><button onclick="appendToDisplay('.')">.</button></td>
+            </tr>
+
+        </table>
+    </div>
+
+    <!-- JavaScript functions for calculator operations -->
+    <script>
+        // Function to append characters to the display
+        function appendToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+
+        // Function to clear the display
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        // Function to delete the last character from the display
+        function deleteLastDigit(){
+            const display = document.getElementById('display');
+            display.value = display.value.slice(0, -1);
+        }
+
+        // Function to calculate the result of the expression in the display
+        function calculateResult() {
+            try {
+                const result = eval(document.getElementById('display').value);
+                document.getElementById('display').value = result;
+            } catch (error) {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
